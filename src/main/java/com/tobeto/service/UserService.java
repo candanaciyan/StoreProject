@@ -22,6 +22,17 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
+	// genellikle save edilen objenin idsini merak ederiz bu yuzden save islemleri
+	// veya update islemlerinde
+	// return ediyoruz bunlari saveden gelen objeyi
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+
 	public Optional<User> getUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
@@ -43,23 +54,22 @@ public class UserService {
 		return user;
 	}
 
-//
-//	public boolean sifreDegistir(String eskiSifre, String yeniSifre, String adi) {
-//		Optional<Kullanicilar> kullanicilar = kullanicilarRepository.findByKullaniciAdi(adi);
-//		if (kullanicilar.isPresent()) {
-//			// kullanıcı, adına göre veritabanında bulundu.
-//			// şifresini kontrol edelim.
-//			Kullanicilar kullanici = kullanicilar.get();
-//			if (passwordEncoder.matches(eskiSifre, kullanici.getSifre())) {
-//				// şifresi doğru. Şifresini yeni şifre ile güncelleyelim.
-//				kullanici.setSifre(passwordEncoder.encode(yeniSifre));
-//				kullanicilarRepository.save(kullanici);
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//
+	public boolean changePassword(String oldPassword, String newPassword, String email) {
+		Optional<User> user = userRepository.findByEmail(email);
+		if (user.isPresent()) {
+			// kullanıcı, adına göre veritabanında bulundu.
+			// şifresini kontrol edelim.
+			User oUser = user.get();
+			if (passwordEncoder.matches(oldPassword, oUser.getPassword())) {
+				// şifresi doğru. Şifresini yeni şifre ile güncelleyelim.
+				oUser.setPassword(passwordEncoder.encode(newPassword));
+				userRepository.save(oUser);
+				return true;
+			}
+		}
+		return false;
+	}
+
 //	@Transactional
 //	public Kullanicilar kayitOl(String email, String password) {
 //		if (kullanicilarRepository.findByKullaniciAdi(email).isPresent()) {
@@ -79,15 +89,5 @@ public class UserService {
 //		return kullanicilarRepository.save(kullanicilar);
 //	}
 //	
-	public User createUser(User user) {
-		return userRepository.save(user);
-	}
-	// genellikle save edilen objenin idsini merak ederiz bu yuzden save islemleri
-	// veya update islemlerinde
-	// return ediyoruz bunlari saveden gelen objeyi
-
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
 
 }
