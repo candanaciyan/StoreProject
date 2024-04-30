@@ -11,6 +11,8 @@ public class LoginService {
 	@Autowired
 	private UserService userService;
 
+	// burasi armut icin gerekli eger digeri olmazsa
+
 //	public String login(String email, String password) {
 //		Optional<User> oUser = userService.getUserByEmail(email);
 //		if (oUser.isPresent() && oUser.get().getPassword().equals(password)) {

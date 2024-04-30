@@ -9,4 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SuccessResponseDTO {
 	private String message;
+	// bu genel response cevabi icin olusturulan dto
+	// global seylerde ozel birsey dondurmeyecveksem
+
 }

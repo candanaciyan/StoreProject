@@ -11,4 +11,6 @@ public class CreateUserRequestDTO {
 	private String email;
 	private String password;
 	private LocalDateTime createDate;
+	private int roleId;
+
 }

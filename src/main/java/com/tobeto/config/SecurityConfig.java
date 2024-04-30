@@ -33,6 +33,8 @@ public class SecurityConfig {
 				.requestMatchers("/api/v1/product/").hasAnyRole("admin","supervisor")
 				.anyRequest().authenticated()
 				)
+		//bu isteklere izin ver bunun disindaki herhangib bir istegi ise login olmasi sartini ara dedik
+		
 		     .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		     .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 		// @formatter:on
@@ -44,4 +46,7 @@ public class SecurityConfig {
 	PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	// geriye yeni bir bcrypt instance uretip geri dondursun
+	// bende bunu autowired ile istedigim yerde cagirip kullanabilecegim
+
 }

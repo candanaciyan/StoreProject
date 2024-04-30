@@ -1,5 +1,11 @@
 package com.tobeto.service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tobeto.entity.Role;
+import com.tobeto.entity.User;
 import com.tobeto.repository.UserRepository;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -24,7 +33,44 @@ public class TokenService {
 	private UserRepository userRepository;
 
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//
+//token uretmek icin gereken 3 dependency var onu pom xml e ekliyoruz jjwtli olanlar onlar
+
+	public String createToken(User user) {
+		JwtBuilder builder = Jwts.builder();
+//kullanicilar degiskeni uzerinden get rollers diyoruz bu bize list roller veriyor
+		Role userRoles = user.getRole();
+		// bu iliskiden dolayi mtm olmadigi icin role u list degil normal aldim
+		// sonra her rol icin for dongusuyle string arrayin icerisine rollerin
+		// isimlerini yaziyorum
+		String[] roles = new String[userRoles.size()];
+		for (int i = 0; i < userRoles.size(); i++) {
+			roles[i] = userRoles.get(i).getRole();
+		}
+
+		// add custom keys
+		Map<String, Object> customKeys = new HashMap<>();
+		customKeys.put("role", role);
+		customKeys.put("userId", user.getId().toString());
+		builder = builder.claims(customKeys);
+
+		Instant tarih = Instant.now().plus(15, ChronoUnit.MINUTES);
+
+		builder = builder.subject("login").id(user.getEmail()).issuedAt(new Date())
+				.expiration(Date.from(tarih));
+
+		return builder.signWith(getKey()).compact();
+	}
+
+	public Claims tokenControl(String token) {
+		JwtParser builder = Jwts.parser().verifyWith(getKey()).build();
+		return builder.parseSignedClaims(token).getPayload();
+	}
+
+	private SecretKey getKey() {
+		SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(KEY));
+		return key;
+	}
+
 //	@Transactional
 //	public String tokenUret(UserDetails user) {
 //		Optional<Kullanici> oKullanici = kullaniciRepository.findByEmail(user.getUsername());
@@ -37,57 +83,5 @@ public class TokenService {
 //		throw new UsernameNotFoundException("Not Found");
 //	}
 //
-//	private String tokenUser(Kullanici kullanici) {
-//		JwtBuilder builder = Jwts.builder();
-//
-//		List<Rol> rollerKullanici = kullanici.getRoller();
-//
-//		String[] roller = new String[rollerKullanici.size()];
-//		for (int i = 0; i < rollerKullanici.size(); i++) {
-//			roller[i] = rollerKullanici.get(i).getAdi();
-//		}
 
-	// add custom keys
-//	Map<String, Object> customKeys = new HashMap<>();customKeys.put("roller",roller);builder=builder.claims(customKeys);
-//
-//	Instant tarih = Instant.now().plus(15, ChronoUnit.MINUTES);
-//
-//	builder=builder.subject("login").id(kullanici.getEmail()).issuedAt(new Date()).expiration(Date.from(tarih));
-//
-//	return builder.signWith(getKey()).compact();
-//	}
-
-	public Claims tokenControl(String token) {
-		JwtParser builder = Jwts.parser().verifyWith(getKey()).build();
-		return builder.parseSignedClaims(token).getPayload();
-	}
-
-	private SecretKey getKey() {
-		SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(KEY));
-		return key;
-	}
-
-//	public String createToken(User user) {
-//		JwtBuilder builder = Jwts.builder();
-//
-//		List<Roller> rollerKullanici = kullanicilar.getRollers();
-//
-//		String[] roller = new String[rollerKullanici.size()];
-//		for (int i = 0; i < rollerKullanici.size(); i++) {
-//			roller[i] = rollerKullanici.get(i).getRol();
-//		}
-//
-//		// add custom keys
-//		Map<String, Object> customKeys = new HashMap<>();
-//		customKeys.put("roller", roller);
-//		customKeys.put("kullanicilarId", kullanicilar.getId().toString());
-//		builder = builder.claims(customKeys);
-//
-//		Instant tarih = Instant.now().plus(15, ChronoUnit.MINUTES);
-//
-//		builder = builder.subject("login").id(kullanicilar.getKullaniciAdi()).issuedAt(new Date())
-//				.expiration(Date.from(tarih));
-//
-//		return builder.signWith(getKey()).compact();
-//	}
 }

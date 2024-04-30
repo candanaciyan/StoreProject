@@ -9,25 +9,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class V1_1_0__encrypt_password extends BaseJavaMigration {
+
 	@Override
 	public void migrate(Context context) throws Exception {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		try (PreparedStatement kullanicilar = context.getConnection()
-				.prepareStatement("select * from kullanicilar")) {
-			try (ResultSet kullanicilarRs = kullanicilar.executeQuery()) {
-				while (kullanicilarRs.next()) {
-					String clearPassword = kullanicilarRs.getString("sifre");
-					byte[] id = kullanicilarRs.getBytes("id");
+		try (PreparedStatement users = context.getConnection()
+				.prepareStatement("select * from users")) {
+			try (ResultSet userss = users.executeQuery()) {
+				while (userss.next()) {
+					String clearPassword = userss.getString("password");
+					byte[] id = userss.getBytes("id");
 
-					try (PreparedStatement kullaniciSifreUpdate = context.getConnection()
-							.prepareStatement("update kullanicilar set sifre = ? where id = ?")) {
-						kullaniciSifreUpdate.setString(1, encoder.encode(clearPassword));
-						kullaniciSifreUpdate.setBytes(2, id);
-						kullaniciSifreUpdate.execute();
+					try (PreparedStatement userPasswordUpdate = context.getConnection()
+							.prepareStatement("update users set password = ? where id = ?")) {
+						userPasswordUpdate.setString(1, encoder.encode(clearPassword));
+						userPasswordUpdate.setBytes(2, id);
+						userPasswordUpdate.execute();
 					}
 				}
 			}
 		}
 	}
+
 }

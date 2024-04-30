@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.tobeto.entity.User;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-	Optional<User> findByEmail(String email);
+	Optional<User> findByEmail(String email);// emaile gore arayip bulacak
 
 }

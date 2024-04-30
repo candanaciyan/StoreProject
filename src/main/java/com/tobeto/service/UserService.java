@@ -22,10 +22,6 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
-
 	public Optional<User> getUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
@@ -36,14 +32,17 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-//	@Transactional
-//	public Optional<Kullanicilar> getKullanici(String adi) {
-//		Optional<Kullanicilar> kullanicilar = kullanicilarRepository.findByKullaniciAdi(adi);
-//		if (kullanicilar.isPresent()) {
-//			kullanicilar.get().getRollers();
-//		}
-//		return kullanicilar;
-//	}
+	// bu metodu login olma sirasinda kullanacagiz
+	@Transactional
+	public Optional<User> getUser(String email) {// kullanicinin emailine gore arattiricaz
+		Optional<User> user = userRepository.findByEmail(email);
+		if (user.isPresent()) {// varsa bu kullanici
+			user.get().getRole();// bu sayede bu kullanicinin rollerini vtden cekecek icine koyup
+									// geri dondurecek
+		}
+		return user;
+	}
+
 //
 //	public boolean sifreDegistir(String eskiSifre, String yeniSifre, String adi) {
 //		Optional<Kullanicilar> kullanicilar = kullanicilarRepository.findByKullaniciAdi(adi);
@@ -80,12 +79,15 @@ public class UserService {
 //		return kullanicilarRepository.save(kullanicilar);
 //	}
 //	
-//	public YazilimIlan yazilimIlanVer(YazilimIlan yazilimIlan) {
-//		return yazilimIlanRepository.save(yazilimIlan);
-//	}
-//
-//	public List<YazilimIlan> getTumYazilimIlanlari() {
-//		return yazilimIlanRepository.findAll();
-//	}
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
+	// genellikle save edilen objenin idsini merak ederiz bu yuzden save islemleri
+	// veya update islemlerinde
+	// return ediyoruz bunlari saveden gelen objeyi
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 
 }

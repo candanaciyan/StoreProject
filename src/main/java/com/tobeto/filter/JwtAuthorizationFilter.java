@@ -39,12 +39,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 					// token gönderilmiş ise
 					Claims claims = tokenService.tokenControl(token);
 					String email = claims.getId();
-					@SuppressWarnings("unchecked")
-					ArrayList<String> roles = claims.get("roles", ArrayList.class);
+					// ArrayList<String> roles = claims.get("roles", ArrayList.class);
 					List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 					// String[] içindeki her bir rol için SimpleGrantedAuthority objesi oluşturup
 					// authorities listesine ekledik.
-					roles.forEach(r -> authorities.add(new SimpleGrantedAuthority("ROLE_" + r)));
+					String role = claims.get("role", String.class);
+					authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
 
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 							email, "", authorities);
