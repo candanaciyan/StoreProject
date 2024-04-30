@@ -38,18 +38,19 @@ public class TokenService {
 	public String createToken(User user) {
 		JwtBuilder builder = Jwts.builder();
 //kullanicilar degiskeni uzerinden get rollers diyoruz bu bize list roller veriyor
-		Role userRoles = user.getRole();
+
 		// bu iliskiden dolayi mtm olmadigi icin role u list degil normal aldim
 		// sonra her rol icin for dongusuyle string arrayin icerisine rollerin
 		// isimlerini yaziyorum
-		String[] roles = new String[userRoles.size()];
-		for (int i = 0; i < userRoles.size(); i++) {
-			roles[i] = userRoles.get(i).getRole();
-		}
+		Role userRole = user.getRole();
+//		String[] roles = new String[userRole.size()];
+//		for (int i = 0; i < userRole.size(); i++) {
+//			roles[i] = userRole.get(i).getRole();
+//		}
 
 		// add custom keys
 		Map<String, Object> customKeys = new HashMap<>();
-		customKeys.put("role", role);
+		customKeys.put("role", userRole);
 		customKeys.put("userId", user.getId().toString());
 		builder = builder.claims(customKeys);
 

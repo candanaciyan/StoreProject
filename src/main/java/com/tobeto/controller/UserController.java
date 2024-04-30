@@ -20,7 +20,7 @@ import com.tobeto.entity.User;
 import com.tobeto.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1")
 public class UserController {
 
 	@Autowired
@@ -39,7 +39,7 @@ public class UserController {
 //		return responseMapper.map(user, CreateUserResponseDTO.class);
 //	}
 
-	@PostMapping("/create")
+	@PostMapping("/user/create")
 	public ResponseEntity<SuccessResponseDTO> createUser(@RequestBody CreateUserRequestDTO dto) {
 		User user = requestMapper.map(dto, User.class);
 		userService.createUser(user);
