@@ -13,8 +13,6 @@ import com.tobeto.exception.ServiceException.ERROR_CODES;
 import com.tobeto.repository.ProductRepository;
 import com.tobeto.repository.ShelfRepository;
 
-import jakarta.transaction.Transactional;
-
 @Service
 public class ProductService {
 	@Autowired
@@ -37,67 +35,67 @@ public class ProductService {
 
 	}
 
-	@Transactional
-	public void acceptProduct(int productId, int count) {
-		Product product = getProduct(productId);
-		Optional<Shelf> oShelf = shelfRepository.findByProductIdNotFull(productId);
-		if (oShelf.isPresent()) {
-			// yarı dolu shelf bulundu. İçine aldığı kadar product koyalım.
-			Shelf shelf = oShelf.get();
-			int konacakMiktar = count;
-			int shelfIcindeKalanKisim = shelf.getCapacity() - shelf.getCount();
-			if (konacakMiktar > shelfIcindeKalanKisim) {
-				konacakMiktar = shelfIcindeKalanKisim;
-			}
-			shelf.setCount(shelf.getCount() + konacakMiktar);
-			shelfRepository.save(shelf);
-			count -= konacakMiktar;
-		}
-		// kalan product'ler varsa kalan boş shelf'lara doldurulacak.
-		if (count > 0) {
-			bosShelfDoldur(count, product);
-		}
+//	@Transactional
+//	public void acceptProduct(int productId, int count) {
+//		Product product = getProduct(productId);
+//		Optional<Shelf> oShelf = shelfRepository.findByProductIdNotFull(productId);
+//		if (oShelf.isPresent()) {
+//			// yarı dolu shelf bulundu. İçine aldığı kadar product koyalım.
+//			Shelf shelf = oShelf.get();
+//			int konacakMiktar = count;
+//			int shelfIcindeKalanKisim = shelf.getCapacity() - shelf.getCount();
+//			if (konacakMiktar > shelfIcindeKalanKisim) {
+//				konacakMiktar = shelfIcindeKalanKisim;
+//			}
+//			shelf.setCount(shelf.getCount() + konacakMiktar);
+//			shelfRepository.save(shelf);
+//			count -= konacakMiktar;
+//		}
+//		// kalan product'ler varsa kalan boş shelf'lara doldurulacak.
+//		if (count > 0) {
+//			bosShelfDoldur(count, product);
+//		}
+//
+//	}
 
-	}
-
-	public String saleProduct(int productId, int count) {
-		String message = "";
-		Product product = getProduct(productId);
-		Optional<Shelf> oShelf = shelfRepository.findByProductIdNotFull(productId);
-		if (oShelf.isPresent()) {
-			// yarı dolu shelf bulundu. Satış öncelikli olarak bu shelf içinden yapılacak.
-			Shelf shelf = oShelf.get();
-			int satisMiktari = count;
-
-			if (satisMiktari > shelf.getCount()) {
-				satisMiktari = shelf.getCount();
-			}
-			shelf.setCount(shelf.getCount() - satisMiktari);
-			if (shelf.getCount() == 0) {
-				// boş boşaldı. Fruit ile ilişkisini kaldıralım.
-				shelf.setProduct(null);
-			}
-			shelfRepository.save(shelf);
-			count -= satisMiktari;
-		}
-		// satış yapılacak product'ler kaldı ise diğer tam dolu shelf'lardan satış devam
-		// edecek.
-		if (count > 0) {
-			tamDoluShelflerdenSatisYap(count, product);
-		}
-
-		if (product.getQuantity() < product.getMinimum()) {
-
-			message = "Urun adedi(" + product.getQuantity() + ") limitin (" + product.getMinimum()
-					+ ") altina Dustu.";
-		}
-		return message;
-	}
-
-	public int getProductCount(int productId) {
-		Integer count = shelfRepository.getProductCount(productId);
-		return count == null ? 0 : count;
-	}
+//	public String saleProduct(int productId, int count) {
+//		String message = "";
+//		Product product = getProduct(productId);
+//		Optional<Shelf> oShelf = shelfRepository.findByProductIdNotFull(productId);
+//		if (oShelf.isPresent()) {
+//			// yarı dolu shelf bulundu. Satış öncelikli olarak bu shelf içinden yapılacak.
+//			Shelf shelf = oShelf.get();
+//			int satisMiktari = count;
+//
+//			if (satisMiktari > shelf.getCount()) {
+//				satisMiktari = shelf.getCount();
+//			}
+//			shelf.setCount(shelf.getCount() - satisMiktari);
+//			if (shelf.getCount() == 0) {
+//				// boş boşaldı. Fruit ile ilişkisini kaldıralım.
+//				shelf.setProduct(null);
+//			}
+//			shelfRepository.save(shelf);
+//			count -= satisMiktari;
+//		}
+//		// satış yapılacak product'ler kaldı ise diğer tam dolu shelf'lardan satış devam
+//		// edecek.
+//		if (count > 0) {
+//			tamDoluShelflerdenSatisYap(count, product);
+//		}
+//
+//		if (product.getQuantity() < product.getMinimum()) {
+//
+//			message = "Urun adedi(" + product.getQuantity() + ") limitin (" + product.getMinimum()
+//					+ ") altina Dustu.";
+//		}
+//		return message;
+//	}
+//
+//	public int getProductCount(int productId) {
+//		Integer count = shelfRepository.getProductCount(productId);
+//		return count == null ? 0 : count;
+//	}
 
 	private void bosShelfDoldur(int count, Product product) {
 		List<Shelf> emptyShelves = shelfRepository.findAllByCount(0);

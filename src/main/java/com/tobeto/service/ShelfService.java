@@ -22,8 +22,13 @@ public class ShelfService {
 	}
 
 	public int createShelf(int capacity, int count) {
-		if (count > 5) {
-			count = 5;
+//		bu kapasitede ve bu kadar sayida box uretecegim
+//		public int diyerek geriye kac tane urettigimi dondurebilirim
+
+		if (count > 100) {
+			count = 100;
+			// 100den fazla box yaratmayalim limit o olsun dedik
+
 		}
 		for (int i = 0; i < count; i++) {
 			Shelf shelf = new Shelf();
@@ -31,6 +36,12 @@ public class ShelfService {
 			shelfRepository.save(shelf);
 		}
 		return count;
+//		dongu yarattik counta kadar i yi 1 arttiracagiz
+//		box objesi yaratip 
+//		box in sadece capasitysini degistirecegim
+//		box repo uzerinden bunu kaydediyorum
+//		ekrana da su kadar box yaratilmistir mesaji verebilirim bu sayede
+
 	}
 
 	public void deleteShelf(int id) {

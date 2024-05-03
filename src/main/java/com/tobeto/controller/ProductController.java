@@ -6,17 +6,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tobeto.dto.SuccessResponseDTO;
-import com.tobeto.dto.product.AcceptProductRequestDTO;
 import com.tobeto.dto.product.CreateProductRequestDTO;
 import com.tobeto.dto.product.DeleteProductRequestDTO;
-import com.tobeto.dto.product.ProductCountResponseDTO;
 import com.tobeto.dto.product.ProductResponseDTO;
 import com.tobeto.entity.Product;
 import com.tobeto.service.ProductService;
@@ -48,17 +45,17 @@ public class ProductController {
 		return new SuccessResponseDTO();
 	}
 
-	@PostMapping("/accept")
-	public SuccessResponseDTO acceptProduct(@RequestBody AcceptProductRequestDTO dto) {
-		productService.acceptProduct(dto.getProductId(), dto.getCount());
-		return new SuccessResponseDTO();
-	}
-
-	@PostMapping("/sale")
-	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
-		productService.saleProduct(dto.getProductId(), dto.getCount());
-		return new SuccessResponseDTO();
-	}
+//	@PostMapping("/accept")
+//	public SuccessResponseDTO acceptProduct(@RequestBody AcceptProductRequestDTO dto) {
+//		productService.acceptProduct(dto.getProductId(), dto.getCount());
+//		return new SuccessResponseDTO();
+//	}
+//
+//	@PostMapping("/sale")
+//	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
+//		productService.saleProduct(dto.getProductId(), dto.getCount());
+//		return new SuccessResponseDTO();
+//	}
 
 	@GetMapping("/all")
 	public List<ProductResponseDTO> getAllProducts() {
@@ -66,9 +63,9 @@ public class ProductController {
 		return products.stream().map(p -> responseMapper.map(p, ProductResponseDTO.class)).toList();
 	}
 
-	@GetMapping("/count/{productId}")
-	public ProductCountResponseDTO getProductCount(@PathVariable int productId) {
-		int count = productService.getProductCount(productId);
-		return new ProductCountResponseDTO(count);
-	}
+//	@GetMapping("/count/{productId}")
+//	public ProductCountResponseDTO getProductCount(@PathVariable int productId) {
+//		int count = productService.getProductCount(productId);
+//		return new ProductCountResponseDTO(count);
+//	}
 }

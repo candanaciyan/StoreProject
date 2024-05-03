@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tobeto.entity.Role;
 import com.tobeto.entity.User;
 import com.tobeto.repository.UserRepository;
 
@@ -42,7 +41,7 @@ public class TokenService {
 		// bu iliskiden dolayi mtm olmadigi icin role u list degil normal aldim
 		// sonra her rol icin for dongusuyle string arrayin icerisine rollerin
 		// isimlerini yaziyorum
-		Role userRole = user.getRole();
+		// Role userRole = user.getRole();
 //		String[] roles = new String[userRole.size()];
 //		for (int i = 0; i < userRole.size(); i++) {
 //			roles[i] = userRole.get(i).getRole();
@@ -50,7 +49,7 @@ public class TokenService {
 
 		// add custom keys
 		Map<String, Object> customKeys = new HashMap<>();
-		customKeys.put("role", userRole);// token icine konan role bilgisi
+		customKeys.put("role", user.getRole());// token icine konan role bilgisi
 		customKeys.put("userId", user.getId().toString());// token icine konan id bilgisi
 		customKeys.put("email", user.getEmail());
 		builder = builder.claims(customKeys);

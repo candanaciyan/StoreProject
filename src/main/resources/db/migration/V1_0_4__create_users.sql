@@ -4,7 +4,7 @@ CREATE TABLE users
     name     VARCHAR(50) NOT NULL,
     surname     VARCHAR(50) NOT NULL,
     email     VARCHAR(50) NOT NULL,
-    password  VARCHAR(50) NOT NULL,
+    password  VARCHAR(200) NOT NULL,
     registration_date TIMESTAMP NOT NULL,
     update_date TIMESTAMP  NULL,
     update_desc	VARCHAR(100)  NULL,
