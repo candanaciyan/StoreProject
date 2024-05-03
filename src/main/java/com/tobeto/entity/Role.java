@@ -17,7 +17,7 @@ import lombok.ToString;
 
 @Entity
 @Data
-@Table(name = "roles")
+@Table(name = "role")
 @ToString(exclude = "users")
 @EqualsAndHashCode(exclude = "users")
 public class Role {

@@ -1,3 +1,3 @@
-INSERT INTO roles (role_name) VALUES ('admin');
-INSERT INTO roles (role_name) VALUES ('supervisor');
-INSERT INTO roles (role_name) VALUES ('reporter');
+INSERT INTO role (role_name) VALUES ('admin');
+INSERT INTO role (role_name) VALUES ('supervisor');
+INSERT INTO role (role_name) VALUES ('reporter');

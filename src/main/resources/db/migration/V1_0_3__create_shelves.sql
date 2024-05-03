@@ -1,4 +1,4 @@
-CREATE TABLE shelves
+CREATE TABLE shelf
 (
     id              INT UNSIGNED AUTO_INCREMENT NOT NULL,
     shelf_count     INT NULL,
@@ -7,5 +7,5 @@ CREATE TABLE shelves
     PRIMARY KEY (id),
     CONSTRAINT fk_product_id
     FOREIGN KEY (product_id)
-    REFERENCES products (id)
+    REFERENCES product (id)
 );

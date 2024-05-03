@@ -1,4 +1,4 @@
-CREATE TABLE users
+CREATE TABLE user
 (
     id        BINARY(16)   NOT NULL,
     name     VARCHAR(50) NOT NULL,
@@ -13,5 +13,5 @@ CREATE TABLE users
     PRIMARY KEY (id),
     CONSTRAINT fk_role_id
         FOREIGN KEY (role_id)
-            REFERENCES roles (id)
+            REFERENCES role (id)
 );

@@ -12,9 +12,9 @@ public interface ShelfRepository extends JpaRepository<Shelf, Integer> {
 
 	List<Shelf> findAllByCount(int count);
 
-//	@Query("SELECT s FROM Shelves s WHERE s.product.id = :productId and s.count < s.capacity")
+//	@Query("SELECT s FROM Shelf s WHERE s.product.id = :productId and s.count < s.capacity")
 //	Optional<Shelf> findByProductIdNotFull(int productId);
 //
-//	@Query("SELECT sum(s.count) FROM Shelves s WHERE s.product.id = :productId")
+//	@Query("SELECT sum(s.count) FROM Shelf s WHERE s.product.id = :productId")
 //	Integer getProductCount(int productId);
 }

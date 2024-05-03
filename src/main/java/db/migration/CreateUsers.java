@@ -20,7 +20,7 @@ public class CreateUsers extends BaseJavaMigration {
 
 	@Override
 	public void migrate(Context context) throws Exception {
-		String sql = "insert into users values (?, ?, ?)";
+		String sql = "insert into user values (?, ?, ?)";
 		users.forEach(user -> {
 			try (PreparedStatement insert = context.getConnection().prepareStatement(sql)) {
 				insert.setBytes(1, convert(UUID.randomUUID()));

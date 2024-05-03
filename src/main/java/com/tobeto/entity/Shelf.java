@@ -15,7 +15,7 @@ import lombok.ToString;
 @Data
 @ToString(exclude = "product")
 @EqualsAndHashCode(exclude = "product")
-@Table(name = "shelves")
+@Table(name = "shelf")
 public class Shelf {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
