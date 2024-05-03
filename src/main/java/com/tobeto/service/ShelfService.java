@@ -69,7 +69,14 @@ public class ShelfService {
 			shelfRepository.save(shelf);
 		}
 	}
+//	burda once boxi okumam gerekiyor bunu diyerek o id li box I okuyorum bu bana geriye optional donduruyor
+//	eger o idli box varsa vtninda bulmussak guncelleyegiz
+//	box I alalim get diyerek
+//	icindeki capacityi capacity yapiyoruz ve  kapasitesi burada degismis oluyor
+//	ve bunu save diyerek guncelliyoruz
 
+	
+	
 //	public List<Shelf> getShelves(int id) {
 //		return shelfRepository.findById(id);
 //	}

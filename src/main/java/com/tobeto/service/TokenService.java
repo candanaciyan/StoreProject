@@ -8,14 +8,10 @@ import java.util.Map;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tobeto.entity.User;
-import com.tobeto.repository.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
@@ -28,10 +24,7 @@ import io.jsonwebtoken.security.Keys;
 public class TokenService {
 	@Value("${application.security.jwt.SECRET_KEY}")
 	private String KEY;
-	@Autowired
-	private UserRepository userRepository;
 
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //token uretmek icin gereken 3 dependency var onu pom xml e ekliyoruz jjwtli olanlar onlar
 
 	public String createToken(User user) {
@@ -49,8 +42,9 @@ public class TokenService {
 
 		// add custom keys
 		Map<String, Object> customKeys = new HashMap<>();
-		customKeys.put("role", user.getRole());// token icine konan role bilgisi
-		customKeys.put("userId", user.getId().toString());// token icine konan id bilgisi
+		customKeys.put("role", user.getRole().getName());// token icine konan role bilgisi
+		// customKeys.put("userId", user.getId().toString());// token icine konan id
+		// bilgisi
 		customKeys.put("email", user.getEmail());
 		builder = builder.claims(customKeys);
 
