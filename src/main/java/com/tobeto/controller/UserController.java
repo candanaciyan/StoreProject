@@ -88,7 +88,7 @@ public class UserController {
 //		if sonuc true ise geriye bunu dondursun 
 //		else ise hata donsun		
 		if (result) {
-			return ResponseEntity.ok(new SuccessResponseDTO("şifre değiştirildi"));
+			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed"));
 		} else {
 			return ResponseEntity.internalServerError().build();
 		}

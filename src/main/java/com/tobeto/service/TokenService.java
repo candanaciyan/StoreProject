@@ -50,14 +50,15 @@ public class TokenService {
 
 		// add custom keys
 		Map<String, Object> customKeys = new HashMap<>();
-		customKeys.put("role", userRole);
-		customKeys.put("userId", user.getId().toString());
+		customKeys.put("role", userRole);// token icine konan role bilgisi
+		customKeys.put("userId", user.getId().toString());// token icine konan id bilgisi
+		customKeys.put("email", user.getEmail());
 		builder = builder.claims(customKeys);
 
-		Instant tarih = Instant.now().plus(15, ChronoUnit.MINUTES);
+		Instant time = Instant.now().plus(15, ChronoUnit.MINUTES);
 
 		builder = builder.subject("login").id(user.getEmail()).issuedAt(new Date())
-				.expiration(Date.from(tarih));
+				.expiration(Date.from(time));
 
 		return builder.signWith(getKey()).compact();
 	}

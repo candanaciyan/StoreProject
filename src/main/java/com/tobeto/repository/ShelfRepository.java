@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.tobeto.entity.Shelf;
 
 public interface ShelfRepository extends JpaRepository<Shelf, Integer> {
-	List<Shelf> findByProductName(String productName);
 
 	List<Shelf> findAllByProductIdAndCountGreaterThan(int id, int count);
 

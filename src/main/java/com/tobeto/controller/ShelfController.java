@@ -36,12 +36,13 @@ public class ShelfController {
 	@GetMapping("/")
 	public List<ShelfResponseDTO> getAllShelves() {
 		List<Shelf> shelves = shelfService.getAllShelves();
-		return shelves.stream().map(b -> responseMapper.map(b, ShelfResponseDTO.class)).toList();
+		return shelves.stream().map(s -> responseMapper.map(s, ShelfResponseDTO.class)).toList();
 	}
+	// repositoryden tum boxlari okuyup geri donduren service classi fonksiyonu
 
 	@PostMapping("/create")
-	public SuccessResponseDTO createShelves(@RequestBody CreateShelfRequestDTO dto) {
-		int count = shelfService.createShelves(dto.getCapacity(), dto.getCount());
+	public SuccessResponseDTO createShelf(@RequestBody CreateShelfRequestDTO dto) {
+		int count = shelfService.createShelf(dto.getCapacity(), dto.getCount());
 		return new SuccessResponseDTO(String.valueOf(count));
 	}
 

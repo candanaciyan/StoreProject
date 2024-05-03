@@ -33,6 +33,7 @@ public class ProductService {
 
 	public void deleteProduct(int id) {
 		productRepository.deleteById(id);
+		// o id li objeyi veri tabanindan silmesini soylemis oluyorum burada
 
 	}
 

@@ -22,7 +22,7 @@ public class Product {
 	private int id;
 
 	@Column(name = "product_name")
-	private String productName;
+	private String name;
 
 	@Column(name = "stock_quantity")
 	private int quantity;
@@ -32,6 +32,9 @@ public class Product {
 
 	@Column(name = "product_desc")
 	private String description;
+
+	@Column(name = "image")
+	private String image;
 
 	@OneToMany(mappedBy = "product")
 	private List<Shelf> shelves;

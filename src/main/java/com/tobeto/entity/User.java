@@ -48,7 +48,7 @@ public class User {
 	// bu sadece admin icin
 
 	@Column(name = "update_desc")
-	private String update_desc;
+	private String desc;
 
 	// bu sadece admin icin
 	@PrePersist

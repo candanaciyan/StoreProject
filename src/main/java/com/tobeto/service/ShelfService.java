@@ -21,7 +21,7 @@ public class ShelfService {
 		return shelfRepository.findAll();
 	}
 
-	public int createShelves(int capacity, int count) {
+	public int createShelf(int capacity, int count) {
 		if (count > 5) {
 			count = 5;
 		}
@@ -59,8 +59,8 @@ public class ShelfService {
 		}
 	}
 
-	public List<Shelf> getShelves(String productName) {
-		return shelfRepository.findByProductName(productName);
-	}
+//	public List<Shelf> getShelves(int id) {
+//		return shelfRepository.findById(id);
+//	}
 
 }

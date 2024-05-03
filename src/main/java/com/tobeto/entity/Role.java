@@ -26,7 +26,7 @@ public class Role {
 	private int id;
 
 	@Column(name = "role_name")
-	private String roleName;
+	private String name;
 
 	@OneToMany(mappedBy = "role")
 	@JsonIgnore

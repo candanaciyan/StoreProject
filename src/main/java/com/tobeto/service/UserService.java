@@ -28,15 +28,17 @@ public class UserService {
 	// genellikle save edilen objenin idsini merak ederiz bu yuzden save islemleri
 	// veya update islemlerinde
 	// return ediyoruz bunlari saveden gelen objeyi
+	// vtninda kaydetme islemlerinde id den dolayi
+	// user yaratan metot geriye de user donduruyor ama geriye dondurdugu obje
+	// icinde id bilgisi de bulunmus oluyor
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
 
 	public Optional<User> getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return userRepository.findByEmail(email);
+			}
 
 	@Transactional
 	public User addUser(User user) {
@@ -44,6 +46,10 @@ public class UserService {
 	}
 
 	// bu metodu login olma sirasinda kullanacagiz
+	// bu metodu login olma sirasinda kullanacagiz
+//	userservicetemi burda
+//	mi kullnacagiz
+//	ona iyi planla burasi daha mantikli gibi
 	@Transactional
 	public Optional<User> getUser(String email) {// kullanicinin emailine gore arattiricaz
 		Optional<User> user = userRepository.findByEmail(email);

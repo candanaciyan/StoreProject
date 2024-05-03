@@ -8,5 +8,5 @@ import com.tobeto.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-	Optional<Product> findByName(String productname);
+	Optional<Product> findByName(String name);
 }

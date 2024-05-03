@@ -8,4 +8,5 @@ public class CreateProductRequestDTO {
 	private String name;
 	private int minimum;
 	private String image;
+
 }

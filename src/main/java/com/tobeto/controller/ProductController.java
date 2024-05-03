@@ -60,13 +60,13 @@ public class ProductController {
 		return new SuccessResponseDTO();
 	}
 
-	@GetMapping("/")
+	@GetMapping("/all")
 	public List<ProductResponseDTO> getAllProducts() {
 		List<Product> products = productService.getAllProducts();
 		return products.stream().map(p -> responseMapper.map(p, ProductResponseDTO.class)).toList();
 	}
 
-	@GetMapping("/count/{fruitId}")
+	@GetMapping("/count/{productId}")
 	public ProductCountResponseDTO getProductCount(@PathVariable int productId) {
 		int count = productService.getProductCount(productId);
 		return new ProductCountResponseDTO(count);

@@ -30,7 +30,7 @@ public class SecurityConfig {
 				.requestMatchers("/api/v1/shelf").hasAnyRole("admin","supervisor")
 				.requestMatchers("/api/v1/shelf/get").permitAll()
 				.requestMatchers("/api/v1/product/get").permitAll()
-				.requestMatchers("/api/v1/product/").hasAnyRole("admin","supervisor")
+				.requestMatchers("/api/v1/product/").hasAnyRole("admin","supervisor","reporter")
 				.anyRequest().authenticated()
 				)
 		//bu isteklere izin ver bunun disindaki herhangib bir istegi ise login olmasi sartini ara dedik

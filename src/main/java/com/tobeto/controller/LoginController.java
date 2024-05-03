@@ -54,9 +54,12 @@ public class LoginController {
 //		responseDTO.setToken(token);
 //		return responseDTO;
 //	}
+	// armuttan gelen bu
 	// Buradaki temel işlev, kullanıcı giriş bilgilerini almak, kimlik doğrulamasını
 	// yapmak, bir token oluşturmak ve bu token'ı kullanıcıya geri döndürmektir. Bu
 	// tip işlevler, genellikle kullanıcıların uygulamaya oturum açmasını sağlamak
-	// için kullanılır.
+	// için kullanılır.v
+//	loginresponsedto ve requestdto sadece bu metoda ozel oldugu icin bunlari service classlarina aktarmiyoruz
+//	cunku service classinin login metodu baska yerlerden de cagiriliyor olabilir
 
 }

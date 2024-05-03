@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductResponseDTO {
 	private int id;
-	private String productName;
+	private String name;
 	private int quantity;
 	private int minimum;
+	private String description;
+	private String image;
 }

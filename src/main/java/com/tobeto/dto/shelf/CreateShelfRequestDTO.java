@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateShelfRequestDTO {
-	private int capacity;
 	private int count;
+	private int capacity;
+
 }
