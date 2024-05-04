@@ -42,8 +42,8 @@ public class ShelfController {
 
 	@PostMapping("/create")
 	public SuccessResponseDTO createShelf(@RequestBody CreateShelfRequestDTO dto) {
-		int count = shelfService.createShelf(dto.getCapacity(), dto.getCount());
-		return new SuccessResponseDTO(String.valueOf(count));
+		int result = shelfService.createShelf(dto.getCount(), dto.getCapacity());
+		return new SuccessResponseDTO(String.valueOf(result));
 	}
 
 	@PostMapping("/delete")

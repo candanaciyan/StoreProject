@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tobeto.dto.SuccessResponseDTO;
+import com.tobeto.dto.product.AcceptProductRequestDTO;
 import com.tobeto.dto.product.CreateProductRequestDTO;
 import com.tobeto.dto.product.DeleteProductRequestDTO;
 import com.tobeto.dto.product.ProductResponseDTO;
@@ -45,17 +46,17 @@ public class ProductController {
 		return new SuccessResponseDTO();
 	}
 
-//	@PostMapping("/accept")
-//	public SuccessResponseDTO acceptProduct(@RequestBody AcceptProductRequestDTO dto) {
-//		productService.acceptProduct(dto.getProductId(), dto.getCount());
-//		return new SuccessResponseDTO();
-//	}
-//
-//	@PostMapping("/sale")
-//	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
-//		productService.saleProduct(dto.getProductId(), dto.getCount());
-//		return new SuccessResponseDTO();
-//	}
+	@PostMapping("/accept")
+	public SuccessResponseDTO acceptProduct(@RequestBody AcceptProductRequestDTO dto) {
+		productService.acceptProduct(dto.getProductId(), dto.getCount());
+		return new SuccessResponseDTO();
+	}
+
+	@PostMapping("/sale")
+	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
+		productService.saleProduct(dto.getProductId(), dto.getCount());
+		return new SuccessResponseDTO();
+	}
 
 	@GetMapping("/all")
 	public List<ProductResponseDTO> getAllProducts() {

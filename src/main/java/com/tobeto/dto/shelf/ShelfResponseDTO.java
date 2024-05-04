@@ -7,6 +7,7 @@ public class ShelfResponseDTO {
 	private int id;
 	private int count;
 	private int capacity;
-	private int difference;
+	private int productId;
+	private String productName;
 
 }

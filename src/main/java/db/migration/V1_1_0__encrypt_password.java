@@ -20,11 +20,11 @@ public class V1_1_0__encrypt_password extends BaseJavaMigration {
 					String clearPassword = userList.getString("password");
 					byte[] id = userList.getBytes("id");
 
-					try (PreparedStatement kullaniciSifreUpdate = context.getConnection()
+					try (PreparedStatement userPasswordUpdate = context.getConnection()
 							.prepareStatement("update user set password = ? where id = ?")) {
-						kullaniciSifreUpdate.setString(1, encoder.encode(clearPassword));
-						kullaniciSifreUpdate.setBytes(2, id);
-						kullaniciSifreUpdate.execute();
+						userPasswordUpdate.setString(1, encoder.encode(clearPassword));
+						userPasswordUpdate.setBytes(2, id);
+						userPasswordUpdate.execute();
 					}
 				}
 			}

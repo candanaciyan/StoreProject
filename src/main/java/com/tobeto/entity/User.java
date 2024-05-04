@@ -41,16 +41,10 @@ public class User {
 
 	@Column(name = "registration_date")
 	private LocalDateTime createDate;
-	// disabled gelecek frontendden tarihi frontend oto girecek yani
 
 	@Column(name = "update_date")
 	private LocalDateTime updateDate;
-	// bu sadece admin icin
 
-	@Column(name = "update_desc")
-	private String desc;
-
-	// bu sadece admin icin
 	@PrePersist
 	public void prePersist() {
 		createDate = LocalDateTime.now();

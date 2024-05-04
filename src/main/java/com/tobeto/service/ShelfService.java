@@ -75,10 +75,8 @@ public class ShelfService {
 //	icindeki capacityi capacity yapiyoruz ve  kapasitesi burada degismis oluyor
 //	ve bunu save diyerek guncelliyoruz
 
-	
-	
-//	public List<Shelf> getShelves(int id) {
-//		return shelfRepository.findById(id);
-//	}
+	public Optional<Shelf> getShelves(int id) {
+		return shelfRepository.findById(id);
+	}
 
 }

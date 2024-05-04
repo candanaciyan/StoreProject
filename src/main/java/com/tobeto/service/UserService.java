@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tobeto.entity.Role;
 import com.tobeto.entity.User;
 import com.tobeto.repository.RoleRepository;
 import com.tobeto.repository.UserRepository;
@@ -25,12 +26,6 @@ public class UserService {
 	public User createUser(User user) {
 		return userRepository.save(user);
 	}
-	// genellikle save edilen objenin idsini merak ederiz bu yuzden save islemleri
-	// veya update islemlerinde
-	// return ediyoruz bunlari saveden gelen objeyi
-	// vtninda kaydetme islemlerinde id den dolayi
-	// user yaratan metot geriye de user donduruyor ama geriye dondurdugu obje
-	// icinde id bilgisi de bulunmus oluyor
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -38,18 +33,17 @@ public class UserService {
 
 	public Optional<User> getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
-			}
+	}
 
 	@Transactional
 	public User addUser(User user) {
 		return userRepository.save(user);
 	}
 
-	// bu metodu login olma sirasinda kullanacagiz
-	// bu metodu login olma sirasinda kullanacagiz
-//	userservicetemi burda
-//	mi kullnacagiz
-//	ona iyi planla burasi daha mantikli gibi
+	public Role getRole(int id) {
+		return roleRepository.findById(id).get();
+	}
+
 	@Transactional
 	public Optional<User> getUser(String email) {// kullanicinin emailine gore arattiricaz
 		Optional<User> user = userRepository.findByEmail(email);
@@ -75,25 +69,5 @@ public class UserService {
 		}
 		return false;
 	}
-
-//	@Transactional
-//	public Kullanicilar kayitOl(String email, String password) {
-//		if (kullanicilarRepository.findByKullaniciAdi(email).isPresent()) {
-//			// yeni kayıt işleminde var olan bir kayıdın email'i verilmiş.
-//			// Hata döndürelim.
-//			throw new RuntimeException("Bu isimde bir kullanıcı var");
-//		}
-//		final Kullanicilar kullanicilar = new Kullanicilar();
-//		kullanicilar.setKullaniciAdi(email);
-//		List<Roller> roller = rollerRepository.findAll();
-//		roller = roller.stream().filter(r -> !r.getRol().equals("admin")).toList();
-//		// ManytoMany ilişki olduğu için java sınıflarında da iki yönlü ilişki
-//		// oluşturmak gerekiyor.
-//		kullanicilar.setRollers(roller);
-//		roller.forEach(r -> r.getKullanicilars().add(kullanicilar));
-//		kullanicilar.setSifre(passwordEncoder.encode(password));
-//		return kullanicilarRepository.save(kullanicilar);
-//	}
-//	
 
 }

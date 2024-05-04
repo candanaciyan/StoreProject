@@ -25,26 +25,10 @@ public class TokenService {
 	@Value("${application.security.jwt.SECRET_KEY}")
 	private String KEY;
 
-//token uretmek icin gereken 3 dependency var onu pom xml e ekliyoruz jjwtli olanlar onlar
-
 	public String createToken(User user) {
 		JwtBuilder builder = Jwts.builder();
-//kullanicilar degiskeni uzerinden get rollers diyoruz bu bize list roller veriyor
-
-		// bu iliskiden dolayi mtm olmadigi icin role u list degil normal aldim
-		// sonra her rol icin for dongusuyle string arrayin icerisine rollerin
-		// isimlerini yaziyorum
-		// Role userRole = user.getRole();
-//		String[] roles = new String[userRole.size()];
-//		for (int i = 0; i < userRole.size(); i++) {
-//			roles[i] = userRole.get(i).getRole();
-//		}
-
-		// add custom keys
 		Map<String, Object> customKeys = new HashMap<>();
-		customKeys.put("role", user.getRole().getName());// token icine konan role bilgisi
-		// customKeys.put("userId", user.getId().toString());// token icine konan id
-		// bilgisi
+		customKeys.put("role", user.getRole().getName());
 		customKeys.put("email", user.getEmail());
 		builder = builder.claims(customKeys);
 

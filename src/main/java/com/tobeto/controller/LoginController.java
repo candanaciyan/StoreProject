@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tobeto.dto.login.LoginRequestDTO;
 import com.tobeto.dto.login.LoginResponseDTO;
 import com.tobeto.entity.User;
-import com.tobeto.service.LoginService;
 import com.tobeto.service.TokenService;
 import com.tobeto.service.UserService;
 
@@ -23,17 +22,11 @@ import com.tobeto.service.UserService;
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;
-	@Autowired
 	private UserService userService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private TokenService tokenService;
-
-	// email ve passworde bakmayacagiz onlari veri tabanindan isteyecegiz
-	// eger hersey dogruysa ondan sonra token uretip geri dondurucez onu
-	// yanlissa hata geri dondurucez
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
@@ -46,20 +39,4 @@ public class LoginController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
-
-//	@PostMapping("/login")
-//	public LoginResponseDTO login(@RequestBody LoginRequestDTO dto) {
-//		String token = loginService.login(dto.getEmail(), dto.getPassword());
-//		LoginResponseDTO responseDTO = new LoginResponseDTO();
-//		responseDTO.setToken(token);
-//		return responseDTO;
-//	}
-	// armuttan gelen bu
-	// Buradaki temel işlev, kullanıcı giriş bilgilerini almak, kimlik doğrulamasını
-	// yapmak, bir token oluşturmak ve bu token'ı kullanıcıya geri döndürmektir. Bu
-	// tip işlevler, genellikle kullanıcıların uygulamaya oturum açmasını sağlamak
-	// için kullanılır.v
-//	loginresponsedto ve requestdto sadece bu metoda ozel oldugu icin bunlari service classlarina aktarmiyoruz
-//	cunku service classinin login metodu baska yerlerden de cagiriliyor olabilir
-
 }
