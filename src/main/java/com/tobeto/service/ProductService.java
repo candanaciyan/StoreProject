@@ -91,10 +91,9 @@ public class ProductService {
 			tamDoluShelflerdenSatisYap(count, product);
 		}
 
-		if (product.getQuantity() < product.getMinimum()) {
+		if (shelfRepository.getProductCount(productId) < product.getMinimum()) {
 
-			message = "Urun adedi(" + product.getQuantity() + ") limitin (" + product.getMinimum()
-					+ ") altina Dustu.";
+			message = "Urun adedi limitin (" + product.getMinimum() + ") altina Dustu.";
 		}
 		return message;
 	}

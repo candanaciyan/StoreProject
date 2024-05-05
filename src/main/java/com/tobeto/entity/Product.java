@@ -24,9 +24,6 @@ public class Product {
 	@Column(name = "product_name")
 	private String name;
 
-	@Column(name = "stock_quantity")
-	private int quantity;
-
 	@Column(name = "min_stock")
 	private int minimum;
 

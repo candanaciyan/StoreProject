@@ -56,8 +56,8 @@ public class ProductController {
 
 	@PostMapping("/sale")
 	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
-		productService.saleProduct(dto.getProductId(), dto.getCount());
-		return new SuccessResponseDTO();
+		String message = productService.saleProduct(dto.getProductId(), dto.getCount());
+		return new SuccessResponseDTO(message);
 	}
 
 	@GetMapping("/all")
