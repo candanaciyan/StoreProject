@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tobeto.dto.SuccessResponseDTO;
 import com.tobeto.dto.user.AllUsersResponseDTO;
 import com.tobeto.dto.user.CreateUserRequestDTO;
+import com.tobeto.dto.user.DeleteUserRequestDTO;
 import com.tobeto.dto.user.PasswordChangeRequestDTO;
 import com.tobeto.entity.Role;
 import com.tobeto.entity.User;
@@ -56,6 +57,12 @@ public class UserController {
 			userService.createUser(user);
 			return ResponseEntity.ok(new SuccessResponseDTO("Kişi Oluşturuldu"));
 		}
+	}
+
+	@PostMapping("/delete")
+	public SuccessResponseDTO deleteUser(@RequestBody DeleteUserRequestDTO dto) {
+		userService.deleteUser(dto.getEmail());
+		return new SuccessResponseDTO();
 	}
 
 	@GetMapping("/all")

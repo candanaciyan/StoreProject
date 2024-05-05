@@ -70,4 +70,9 @@ public class UserService {
 		return false;
 	}
 
+	public void deleteUser(String email) {
+		userRepository.deleteByEmail(email);
+
+	}
+
 }
