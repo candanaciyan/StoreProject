@@ -30,6 +30,8 @@ public class TokenService {
 		Map<String, Object> customKeys = new HashMap<>();
 		customKeys.put("role", user.getRole().getName());
 		customKeys.put("email", user.getEmail());
+		customKeys.put("name", user.getName());
+		customKeys.put("surname", user.getSurname());
 		builder = builder.claims(customKeys);
 
 		Instant time = Instant.now().plus(15, ChronoUnit.MINUTES);
