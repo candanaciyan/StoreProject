@@ -34,7 +34,6 @@ public class SecurityConfig {
 				.requestMatchers("/api/v1/menu/user/changepassword").hasAnyRole("admin")
 				.requestMatchers("/api/v1/menu/shelf").hasAnyRole("admin","supervisor","reporter")
 				.requestMatchers("/api/v1/menu/shelf/edit").hasAnyRole("admin","supervisor","reporter")
-				.requestMatchers("/api/v1/menu/shelf/create").hasAnyRole("admin")
 				.anyRequest().authenticated()
 				)
 		

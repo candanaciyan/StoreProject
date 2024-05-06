@@ -30,10 +30,10 @@ INSERT INTO shelf (shelf_count,product_id) VALUES (3,8);
 
 
 INSERT INTO user (id,name, surname, email, password, registration_date, role_id)
-VALUES (UNHEX(REPLACE(UUID(), '-', '')), 'Ali', 'Veli', 'admin@gmail.com', 'admin', CURRENT_TIMESTAMP, 1);
+VALUES (UNHEX(REPLACE(UUID(), '-', '')), 'Ali', 'Veli', 'a@gmail.com', 'a', CURRENT_TIMESTAMP, 1);
 
 INSERT INTO user (id,name, surname, email, password, registration_date, role_id)
-VALUES (UNHEX(REPLACE(UUID(), '-', '')), 'Mehmet', 'Arslan', 'super@gmail.com', 'super', CURRENT_TIMESTAMP, 2);
+VALUES (UNHEX(REPLACE(UUID(), '-', '')), 'Mehmet', 'Arslan', 's@gmail.com', 's', CURRENT_TIMESTAMP, 2);
 
 INSERT INTO user (id,name, surname, email, password, registration_date, role_id)
 VALUES (UNHEX(REPLACE(UUID(), '-', '')), 'Tahsin', 'Mizrak', 'r@gmail.com', 'r', CURRENT_TIMESTAMP, 3);
