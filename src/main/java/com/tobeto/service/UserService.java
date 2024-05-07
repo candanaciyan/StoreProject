@@ -45,11 +45,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public Optional<User> getUser(String email) {// kullanicinin emailine gore arattiricaz
+	public Optional<User> getUser(String email) {
 		Optional<User> user = userRepository.findByEmail(email);
-		if (user.isPresent()) {// varsa bu kullanici
-			user.get().getRole();// bu sayede bu kullanicinin rollerini vtden cekecek icine koyup
-									// geri dondurecek
+		if (user.isPresent()) {
+			user.get().getRole();
 		}
 		return user;
 	}
@@ -57,11 +56,9 @@ public class UserService {
 	public boolean changePassword(String oldPassword, String newPassword, String email) {
 		Optional<User> user = userRepository.findByEmail(email);
 		if (user.isPresent()) {
-			// kullanıcı, adına göre veritabanında bulundu.
-			// şifresini kontrol edelim.
+
 			User oUser = user.get();
 			if (passwordEncoder.matches(oldPassword, oUser.getPassword())) {
-				// şifresi doğru. Şifresini yeni şifre ile güncelleyelim.
 				oUser.setPassword(passwordEncoder.encode(newPassword));
 				userRepository.save(oUser);
 				return true;
@@ -75,4 +72,14 @@ public class UserService {
 
 	}
 
+	public boolean changePasswordAdmin(String newPassword, String email) {
+		Optional<User> user = userRepository.findByEmail(email);
+		if (user.isPresent()) {
+			User oUser = user.get();
+			oUser.setPassword(passwordEncoder.encode(newPassword));
+			userRepository.save(oUser);
+			return true;
+		}
+		return false;
+	}
 }

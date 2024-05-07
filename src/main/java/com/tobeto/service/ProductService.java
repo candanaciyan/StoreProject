@@ -141,7 +141,7 @@ public class ProductService {
 	private void tamDoluShelflerdenSatisYap(int count, Product product) {
 		List<Shelf> fullShelves = shelfRepository
 				.findAllByProductIdAndCountGreaterThan(product.getId(), 0);
-		int siradakiIlkDoluSirasi = fullShelves.size() - 1;
+		int siradakiIlkDoluSirasi = 0;
 		while (count > 0) {
 			// count 0dan buyuk oldugu surece
 			if (siradakiIlkDoluSirasi < 0) {

@@ -21,6 +21,7 @@ import com.tobeto.dto.SuccessResponseDTO;
 import com.tobeto.dto.user.AllUsersResponseDTO;
 import com.tobeto.dto.user.CreateUserRequestDTO;
 import com.tobeto.dto.user.DeleteUserRequestDTO;
+import com.tobeto.dto.user.PasswordChangeAdminRequestDTO;
 import com.tobeto.dto.user.PasswordChangeRequestDTO;
 import com.tobeto.entity.Role;
 import com.tobeto.entity.User;
@@ -81,6 +82,18 @@ public class UserController {
 			@RequestBody PasswordChangeRequestDTO dto, Principal principal) {
 		boolean result = userService.changePassword(dto.getOldPassword(), dto.getNewPassword(),
 				principal.getName());
+
+		if (result) {
+			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed."));
+		} else {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
+	}
+
+	@PostMapping("/passwordadmin")
+	public ResponseEntity<SuccessResponseDTO> changePasswordAdmin(
+			@RequestBody PasswordChangeAdminRequestDTO dto, Principal principal) {
+		boolean result = userService.changePasswordAdmin(dto.getNewPassword(), principal.getName());
 
 		if (result) {
 			return ResponseEntity.ok(new SuccessResponseDTO("Şifre Değiştirildi."));

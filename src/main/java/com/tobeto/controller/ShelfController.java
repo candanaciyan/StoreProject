@@ -15,7 +15,6 @@ import com.tobeto.dto.SuccessResponseDTO;
 import com.tobeto.dto.shelf.CreateShelfRequestDTO;
 import com.tobeto.dto.shelf.DeleteShelfRequestDTO;
 import com.tobeto.dto.shelf.ShelfResponseDTO;
-import com.tobeto.dto.shelf.UpdateShelfRequestDTO;
 import com.tobeto.entity.Shelf;
 import com.tobeto.service.ShelfService;
 
@@ -38,7 +37,6 @@ public class ShelfController {
 		List<Shelf> shelves = shelfService.getAllShelves();
 		return shelves.stream().map(s -> responseMapper.map(s, ShelfResponseDTO.class)).toList();
 	}
-	// repositoryden tum boxlari okuyup geri donduren service classi fonksiyonu
 
 	@PostMapping("/create")
 	public SuccessResponseDTO createShelf(@RequestBody CreateShelfRequestDTO dto) {
@@ -52,9 +50,9 @@ public class ShelfController {
 		return new SuccessResponseDTO();
 	}
 
-	@PostMapping("/update")
-	public SuccessResponseDTO updateShelf(@RequestBody UpdateShelfRequestDTO dto) {
-		shelfService.updateShelf(dto.getId(), dto.getCapacity());
-		return new SuccessResponseDTO();
-	}
+//	@PostMapping("/update")
+//	public SuccessResponseDTO updateShelf(@RequestBody UpdateShelfRequestDTO dto) {
+//		shelfService.updateShelf(dto.getId(), dto.getCapacity());
+//		return new SuccessResponseDTO();
+//	}
 }
