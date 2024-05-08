@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,6 +30,10 @@ public class Product {
 
 	@Column(name = "product_desc")
 	private String description;
+
+	// tabloya eklemedeigimiz icin boyle koyduk
+	@Transient
+	private int totalAmount;
 
 	@Column(name = "image")
 	private String image;

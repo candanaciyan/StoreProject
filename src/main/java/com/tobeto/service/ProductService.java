@@ -28,7 +28,17 @@ public class ProductService {
 	}
 
 	public List<Product> getAllProducts() {
-		return productRepository.findAll();
+		List<Product> products = productRepository.findAll();
+		for (Product product : products) {
+			product.setTotalAmount(getProductCount(product.getId()));
+		}
+		return products;
+	}
+
+	// eger o id de urun yoksa count 0 olacak
+	public int getProductCount(int productId) {
+		Integer count = shelfRepository.getProductCount(productId);
+		return count == null ? 0 : count;
 	}
 
 	public void deleteProduct(int id) {
@@ -91,16 +101,12 @@ public class ProductService {
 			tamDoluShelflerdenSatisYap(count, product);
 		}
 
-		if (shelfRepository.getProductCount(productId) < product.getMinimum()) {
+		if (shelfRepository.getProductCount(productId) != null
+				&& shelfRepository.getProductCount(productId) < product.getMinimum()) {
 
 			message = "Urun adedi limitin (" + product.getMinimum() + ") altina Dustu.";
 		}
 		return message;
-	}
-
-	public int getProductCount(int productId) {
-		Integer count = shelfRepository.getProductCount(productId);
-		return count == null ? 0 : count;
 	}
 
 	private void bosShelfDoldur(int count, Product product) {
@@ -163,5 +169,9 @@ public class ProductService {
 			count -= satilacakMiktar;
 			siradakiIlkDoluSirasi--;
 		}
+	}
+
+	public void updateProduct(Product product) {
+		productRepository.save(product);
 	}
 }

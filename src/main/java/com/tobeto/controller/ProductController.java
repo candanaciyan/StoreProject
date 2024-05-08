@@ -18,6 +18,7 @@ import com.tobeto.dto.product.CreateProductRequestDTO;
 import com.tobeto.dto.product.DeleteProductRequestDTO;
 import com.tobeto.dto.product.ProductCountResponseDTO;
 import com.tobeto.dto.product.ProductResponseDTO;
+import com.tobeto.dto.product.UpdateProductRequestDTO;
 import com.tobeto.entity.Product;
 import com.tobeto.service.ProductService;
 
@@ -48,6 +49,14 @@ public class ProductController {
 		return new SuccessResponseDTO();
 	}
 
+	@PostMapping("/update")
+	public SuccessResponseDTO updateProduct(@RequestBody UpdateProductRequestDTO dto) {
+		Product product = requestMapper.map(dto, Product.class);
+		productService.updateProduct(product);
+		return new SuccessResponseDTO();
+
+	}
+
 	@PostMapping("/accept")
 	public SuccessResponseDTO acceptProduct(@RequestBody AcceptProductRequestDTO dto) {
 		productService.acceptProduct(dto.getProductId(), dto.getCount());
@@ -60,12 +69,14 @@ public class ProductController {
 		return new SuccessResponseDTO(message);
 	}
 
+	// butun urunler
 	@GetMapping("/all")
 	public List<ProductResponseDTO> getAllProducts() {
 		List<Product> products = productService.getAllProducts();
 		return products.stream().map(p -> responseMapper.map(p, ProductResponseDTO.class)).toList();
 	}
 
+	// idsi verilen urunlerin toplam sayisi
 	@GetMapping("/count/{productId}")
 	public ProductCountResponseDTO getProductCount(@PathVariable int productId) {
 		int count = productService.getProductCount(productId);

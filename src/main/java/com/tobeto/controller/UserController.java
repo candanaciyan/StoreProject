@@ -56,7 +56,7 @@ public class UserController {
 			Role role = userService.getRole(dto.getRoleId());
 			user.setRole(role);
 			userService.createUser(user);
-			return ResponseEntity.ok(new SuccessResponseDTO("Kişi Oluşturuldu"));
+			return ResponseEntity.ok(new SuccessResponseDTO("User Created."));
 		}
 	}
 
@@ -96,7 +96,7 @@ public class UserController {
 		boolean result = userService.changePasswordAdmin(dto.getNewPassword(), principal.getName());
 
 		if (result) {
-			return ResponseEntity.ok(new SuccessResponseDTO("Şifre Değiştirildi."));
+			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed."));
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
