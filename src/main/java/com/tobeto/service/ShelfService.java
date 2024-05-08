@@ -11,6 +11,8 @@ import com.tobeto.exception.ServiceException;
 import com.tobeto.exception.ServiceException.ERROR_CODES;
 import com.tobeto.repository.ShelfRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ShelfService {
 
@@ -44,6 +46,7 @@ public class ShelfService {
 
 	}
 
+	@Transactional
 	public void deleteShelf(int id) {
 		Optional<Shelf> oshelf = shelfRepository.findById(id);
 		if (oshelf.isPresent()) {

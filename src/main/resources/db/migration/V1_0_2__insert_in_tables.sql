@@ -3,14 +3,14 @@ INSERT INTO role (role_name) VALUES ('supervisor');
 INSERT INTO role (role_name) VALUES ('reporter');
 
 
-INSERT INTO product (product_name,min_stock, product_desc) VALUES ('Baldo Pirinc',10, 'baldo pirinc');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES('Osmancik Pirinc',15, 'osmancik pirinc');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES ('Kirmizi Mercimek',18, 'kirmizi mercimek');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES  ('Yesil Mercimek',20, 'yesil mercimek');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES  ('Borulce Fasulye',15, 'borulce fasulye');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES  ('Kuru Fasulye',12, 'kuru fasulye');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES ('Nohut',13, 'nohut');
-INSERT INTO product (product_name,min_stock, product_desc) VALUES  ('Beyaz Nohut',14, 'beyaz nohut');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Baldo Pirinc',10, 'baldo pirinc','/assets/img/baldo.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES('Osmancik Pirinc',15, 'osmancik pirinc','/assets/img/osmancik.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Kirmizi Mercimek',18, 'kirmizi mercimek','/assets/img/kirmizi.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Yesil Mercimek',20, 'yesil mercimek','/assets/img/yesil.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Borulce Fasulye',15, 'borulce fasulye','/assets/img/borulce.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Kuru Fasulye',12, 'kuru fasulye','/assets/img/kuru.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Nohut',13, 'nohut','/assets/img/nohut.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Beyaz Nohut',14, 'beyaz nohut','/assets/img/beyaznohut.jpg');
 
 
 INSERT INTO shelf (shelf_count) VALUES (0);

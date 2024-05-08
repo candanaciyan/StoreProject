@@ -92,8 +92,8 @@ public class UserController {
 
 	@PostMapping("/passwordadmin")
 	public ResponseEntity<SuccessResponseDTO> changePasswordAdmin(
-			@RequestBody PasswordChangeAdminRequestDTO dto, Principal principal) {
-		boolean result = userService.changePasswordAdmin(dto.getNewPassword(), principal.getName());
+			@RequestBody PasswordChangeAdminRequestDTO dto) {
+		boolean result = userService.changePasswordAdmin(dto.getNewPassword(), dto.getEmail());
 
 		if (result) {
 			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed."));

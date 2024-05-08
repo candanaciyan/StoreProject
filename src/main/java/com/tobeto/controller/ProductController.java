@@ -65,8 +65,13 @@ public class ProductController {
 
 	@PostMapping("/sale")
 	public SuccessResponseDTO saleProduct(@RequestBody AcceptProductRequestDTO dto) {
-		String message = productService.saleProduct(dto.getProductId(), dto.getCount());
-		return new SuccessResponseDTO(message);
+		int count = productService.getProductCount(dto.getProductId());
+		if (count < dto.getCount()) {
+			return new SuccessResponseDTO("Not enough products");
+		} else {
+			String message = productService.saleProduct(dto.getProductId(), dto.getCount());
+			return new SuccessResponseDTO(message);
+		}
 	}
 
 	// butun urunler

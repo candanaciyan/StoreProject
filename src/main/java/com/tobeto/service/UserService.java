@@ -67,7 +67,9 @@ public class UserService {
 		return false;
 	}
 
+	@Transactional
 	public void deleteUser(String email) {
+		System.out.println(email);
 		userRepository.deleteByEmail(email);
 
 	}
