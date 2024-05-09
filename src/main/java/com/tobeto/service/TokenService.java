@@ -34,7 +34,7 @@ public class TokenService {
 		customKeys.put("surname", user.getSurname());
 		builder = builder.claims(customKeys);
 
-		Instant time = Instant.now().plus(15, ChronoUnit.MINUTES);
+		Instant time = Instant.now().plus(5, ChronoUnit.MINUTES);
 
 		builder = builder.subject("login").id(user.getEmail()).issuedAt(new Date())
 				.expiration(Date.from(time));
@@ -51,18 +51,5 @@ public class TokenService {
 		SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(KEY));
 		return key;
 	}
-
-//	@Transactional
-//	public String tokenUret(UserDetails user) {
-//		Optional<Kullanici> oKullanici = kullaniciRepository.findByEmail(user.getUsername());
-//		if (oKullanici.isPresent()
-//				&& passwordEncoder.matches(user.getPassword(), oKullanici.get().getSifre())) {
-//			// username'e göre veritabanında kayıt bulundu ve şifresi de onaylandı
-//			return tokenUser(oKullanici.get());
-//
-//		}
-//		throw new UsernameNotFoundException("Not Found");
-//	}
-//
 
 }

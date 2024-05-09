@@ -59,18 +59,18 @@ public class ProductService {
 		if (oShelf.isPresent()) {
 			// yarı dolu shelf bulundu. İçine aldığı kadar product koyalım.
 			Shelf shelf = oShelf.get();
-			int konacakMiktar = count;
-			int shelfIcindeKalanKisim = shelf.getCapacity() - shelf.getCount();
-			if (konacakMiktar > shelfIcindeKalanKisim) {
-				konacakMiktar = shelfIcindeKalanKisim;
+			int placedAmount = count;
+			int remainingInside = shelf.getCapacity() - shelf.getCount();
+			if (placedAmount > remainingInside) {
+				placedAmount = remainingInside;
 			}
-			shelf.setCount(shelf.getCount() + konacakMiktar);
+			shelf.setCount(shelf.getCount() + placedAmount);
 			shelfRepository.save(shelf);
-			count -= konacakMiktar;
+			count -= placedAmount;
 		}
 		// kalan product'ler varsa kalan boş shelf'lara doldurulacak.
 		if (count > 0) {
-			bosShelfDoldur(count, product);
+			fillEmptyShelf(count, product);
 		}
 
 	}
@@ -82,53 +82,54 @@ public class ProductService {
 		if (oShelf.isPresent()) {
 			// yarı dolu shelf bulundu. Satış öncelikli olarak bu shelf içinden yapılacak.
 			Shelf shelf = oShelf.get();
-			int satisMiktari = count;
+			int salesQuantity = count;
 
-			if (satisMiktari > shelf.getCount()) {
-				satisMiktari = shelf.getCount();
+			if (salesQuantity > shelf.getCount()) {
+				salesQuantity = shelf.getCount();
 			}
-			shelf.setCount(shelf.getCount() - satisMiktari);
+			shelf.setCount(shelf.getCount() - salesQuantity);
 			if (shelf.getCount() == 0) {
 				// boş boşaldı. Fruit ile ilişkisini kaldıralım.
 				shelf.setProduct(null);
 			}
 			shelfRepository.save(shelf);
-			count -= satisMiktari;
+			count -= salesQuantity;
 		}
 		// satış yapılacak product'ler kaldı ise diğer tam dolu shelf'lardan satış devam
 		// edecek.
 		if (count > 0) {
-			tamDoluShelflerdenSatisYap(count, product);
+			sellF​​romFullLoadedShelves(count, product);
 		}
 
 		if (shelfRepository.getProductCount(productId) != null
 				&& shelfRepository.getProductCount(productId) < product.getMinimum()) {
 
-			message = "Urun adedi limitin (" + product.getMinimum() + ") altina Dustu.";
+			message = "The number of products fell below the limit (" + product.getMinimum() + ").";
 		}
 		return message;
 	}
 
-	private void bosShelfDoldur(int count, Product product) {
+	private void fillEmptyShelf(int count, Product product) {
 		List<Shelf> emptyShelves = shelfRepository.findAllByCount(0);
 		// countu 0 olan boxlari istedik icinde 0 eleman olan
 
-		int siradakiIlkBosSirasi = 0;
+		int nextFirstEmpty = 0;
 		while (count > 0) {
-			if (siradakiIlkBosSirasi >= emptyShelves.size()) {
+			if (nextFirstEmpty >= emptyShelves.size()) {
 				// elimizde doldurabileceğimiz boş shelf kalmadı.
 				throw new ServiceException(ERROR_CODES.NOT_ENOUGH_SHELF);
 			}
-			Shelf shelf = emptyShelves.get(siradakiIlkBosSirasi); // ilk boş kutu
+			Shelf shelf = emptyShelves.get(nextFirstEmpty); // ilk boş kutu
 			shelf.setProduct(product);
-			int konacakMiktar = count;
-			if (konacakMiktar > shelf.getCapacity()) {
-				konacakMiktar = shelf.getCapacity();
+			// konacakmiktar
+			int placedAmount = count;
+			if (placedAmount > shelf.getCapacity()) {
+				placedAmount = shelf.getCapacity();
 			}
-			shelf.setCount(konacakMiktar);
+			shelf.setCount(placedAmount);
 			shelfRepository.save(shelf);
-			count -= konacakMiktar;
-			siradakiIlkBosSirasi++;
+			count -= placedAmount;
+			nextFirstEmpty++;
 		}
 	}
 
@@ -144,30 +145,30 @@ public class ProductService {
 		return product;
 	}
 
-	private void tamDoluShelflerdenSatisYap(int count, Product product) {
+	private void sellF​​romFullLoadedShelves(int count, Product product) {
 		List<Shelf> fullShelves = shelfRepository
 				.findAllByProductIdAndCountGreaterThan(product.getId(), 0);
-		int siradakiIlkDoluSirasi = 0;
+		int nextFirstFullRow = 0;
 		while (count > 0) {
 			// count 0dan buyuk oldugu surece
-			if (siradakiIlkDoluSirasi < 0) {
+			if (nextFirstFullRow < 0) {
 				// elimizde satış yapabileğimiz dolu shelf kalmadı.
 				throw new ServiceException(ERROR_CODES.PRODUCT_NOT_FOUND);
 			}
-			Shelf shelf = fullShelves.get(siradakiIlkDoluSirasi); // ilk dolu shelf
+			Shelf shelf = fullShelves.get(nextFirstFullRow); // ilk dolu shelf
 
-			int satilacakMiktar = count;
-			if (satilacakMiktar > shelf.getCount()) {
-				satilacakMiktar = shelf.getCount();
+			int soldQuantity = count;
+			if (soldQuantity > shelf.getCount()) {
+				soldQuantity = shelf.getCount();
 			}
-			shelf.setCount(shelf.getCount() - satilacakMiktar);
+			shelf.setCount(shelf.getCount() - soldQuantity);
 			if (shelf.getCount() == 0) {
 				// boş boşaldı. Product ile ilişkisini kaldıralım.
 				shelf.setProduct(null);
 			}
 			shelfRepository.save(shelf);
-			count -= satilacakMiktar;
-			siradakiIlkDoluSirasi--;
+			count -= soldQuantity;
+			nextFirstFullRow--;
 		}
 	}
 

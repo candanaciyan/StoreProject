@@ -50,9 +50,4 @@ public class ShelfController {
 		return new SuccessResponseDTO();
 	}
 
-//	@PostMapping("/update")
-//	public SuccessResponseDTO updateShelf(@RequestBody UpdateShelfRequestDTO dto) {
-//		shelfService.updateShelf(dto.getId(), dto.getCapacity());
-//		return new SuccessResponseDTO();
-//	}
 }
