@@ -4,13 +4,13 @@ INSERT INTO role (role_name) VALUES ('reporter');
 
 
 INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Baldo Pirinc',10, 'baldo pirinc','/assets/img/baldo.jpg');
-INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES('Osmancik Pirinc',15, 'osmancik pirinc','/assets/img/osmancik.jpg');
-INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Kirmizi Mercimek',18, 'kirmizi mercimek','/assets/img/kirmizi.jpg');
-INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Yesil Mercimek',20, 'yesil mercimek','/assets/img/yesil.jpg');
-INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Borulce Fasulye',15, 'borulce fasulye','/assets/img/borulce.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES('Osmancik Pirinc',11, 'osmancik pirinc','/assets/img/osmancik.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Kirmizi Mercimek',12, 'kirmizi mercimek','/assets/img/kirmizi.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Yesil Mercimek',8, 'yesil mercimek','/assets/img/yesil.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Borulce Fasulye',14, 'borulce fasulye','/assets/img/borulce.jpg');
 INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Kuru Fasulye',12, 'kuru fasulye','/assets/img/kuru.jpg');
 INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES ('Nohut',13, 'nohut','/assets/img/nohut.jpg');
-INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Beyaz Nohut',14, 'beyaz nohut','/assets/img/beyaznohut.jpg');
+INSERT INTO product (product_name,min_stock, product_desc ,image) VALUES  ('Beyaz Nohut',10, 'beyaz nohut','/assets/img/beyaznohut.jpg');
 
 
 INSERT INTO shelf (shelf_count,product_id) VALUES (5,1);

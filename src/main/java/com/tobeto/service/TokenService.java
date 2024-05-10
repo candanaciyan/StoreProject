@@ -32,11 +32,9 @@ public class TokenService {
 		customKeys.put("email", user.getEmail());
 		customKeys.put("name", user.getName());
 		customKeys.put("surname", user.getSurname());
-		// boyle de yapabilirdik
-		// customKeys.put("user", user);
 		builder = builder.claims(customKeys);
 
-		Instant time = Instant.now().plus(5, ChronoUnit.MINUTES);
+		Instant time = Instant.now().plus(25, ChronoUnit.MINUTES);
 
 		builder = builder.subject("login").id(user.getEmail()).issuedAt(new Date())
 				.expiration(Date.from(time));
