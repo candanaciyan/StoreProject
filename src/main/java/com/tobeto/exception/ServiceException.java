@@ -9,11 +9,15 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 public class ServiceException extends RuntimeException {
 	private static final long serialVersionUID = -309140238380688123L;
+	// exception classlari bean classlar degil ondan bunlarin default cons lari
+	// gerekmiyor
+	// bundan dolayi noArgsConstructor kullanmadik
 
 	public static enum ERROR_CODES {
 		PRODUCT_NOT_FOUND(1, "Product not found."), SHELF_NOT_FOUND(2, "Shelf not found."),
 		NOT_ENOUGH_SHELF(3, "Not enough shelf."), SHELF_HAS_PRODUCTS(4, "Shelf has products."),
-		SET_SHELF_COUNT(5, "You cannot set capacity less than the number of products in the shelf.");
+		SET_SHELF_COUNT(5,
+				"You cannot set capacity less than the number of products in the shelf.");
 
 		private int code;
 		private String message;

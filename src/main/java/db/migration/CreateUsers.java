@@ -14,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CreateUsers extends BaseJavaMigration {
-	List<String[]> users = Arrays
-			.asList(new String[][]
-			{ { "levent", "levent" }, { "test", "test" } });
+	List<String[]> users = Arrays.asList(new String[][] { { "test", "test" } });
 
 	@Override
 	public void migrate(Context context) throws Exception {
@@ -26,7 +24,7 @@ public class CreateUsers extends BaseJavaMigration {
 				insert.setBytes(1, convert(UUID.randomUUID()));
 				insert.setString(2, user[0]);
 				PasswordEncoder encoder = new BCryptPasswordEncoder();
-				insert.setString(3, encoder.encode(user[1])); // password
+				insert.setString(3, encoder.encode(user[1]));
 				insert.execute();
 			} catch (SQLException e) {
 				throw new RuntimeException(e);

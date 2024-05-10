@@ -24,8 +24,7 @@ public class ShelfService {
 	}
 
 	public int createShelf(int capacity, int count) {
-//		bu kapasitede ve bu kadar sayida box uretecegim
-//		public int diyerek geriye kac tane urettigimi dondurebilirim
+		// public int diyerek geriye kac tane urettigimi dondurebilirim
 
 		if (count > 100) {
 			count = 100;
@@ -38,11 +37,6 @@ public class ShelfService {
 			shelfRepository.save(shelf);
 		}
 		return count;
-//		dongu yarattik counta kadar i yi 1 arttiracagiz
-//		box objesi yaratip 
-//		box in sadece capasitysini degistirecegim
-//		box repo uzerinden bunu kaydediyorum
-//		ekrana da su kadar box yaratilmistir mesaji verebilirim bu sayede
 
 	}
 
@@ -77,9 +71,5 @@ public class ShelfService {
 //	box I alalim get diyerek
 //	icindeki capacityi capacity yapiyoruz ve  kapasitesi burada degismis oluyor
 //	ve bunu save diyerek guncelliyoruz
-
-//	public Optional<Shelf> getShelves(int id) {
-//		return shelfRepository.findById(id);
-//	}
 
 }

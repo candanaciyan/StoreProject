@@ -96,7 +96,7 @@ public class UserController {
 		boolean result = userService.changePasswordAdmin(dto.getNewPassword(), dto.getEmail());
 
 		if (result) {
-			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed."));
+			return ResponseEntity.ok(new SuccessResponseDTO("Password Changed By Admin."));
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}

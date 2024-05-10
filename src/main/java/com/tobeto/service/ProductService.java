@@ -39,11 +39,11 @@ public class ProductService {
 	public int getProductCount(int productId) {
 		Integer count = shelfRepository.getProductCount(productId);
 		return count == null ? 0 : count;
+		// nullsa sifir degilse count icindeki degeri dondur dedik
 	}
 
 	public void deleteProduct(int id) {
 		productRepository.deleteById(id);
-		// o id li objeyi veri tabanindan silmesini soylemis oluyorum burada
 
 	}
 
@@ -75,40 +75,6 @@ public class ProductService {
 
 	}
 
-	public String saleProduct(int productId, int count) {
-		String message = "";
-		Product product = getProduct(productId);
-		Optional<Shelf> oShelf = shelfRepository.findByProductIdAndNotFull(productId);
-		if (oShelf.isPresent()) {
-			// yarı dolu shelf bulundu. Satış öncelikli olarak bu shelf içinden yapılacak.
-			Shelf shelf = oShelf.get();
-			int salesQuantity = count;
-
-			if (salesQuantity > shelf.getCount()) {
-				salesQuantity = shelf.getCount();
-			}
-			shelf.setCount(shelf.getCount() - salesQuantity);
-			if (shelf.getCount() == 0) {
-				// boş boşaldı. Fruit ile ilişkisini kaldıralım.
-				shelf.setProduct(null);
-			}
-			shelfRepository.save(shelf);
-			count -= salesQuantity;
-		}
-		// satış yapılacak product'ler kaldı ise diğer tam dolu shelf'lardan satış devam
-		// edecek.
-		if (count > 0) {
-			sellF​​romFullLoadedShelves(count, product);
-		}
-
-		if (shelfRepository.getProductCount(productId) != null
-				&& shelfRepository.getProductCount(productId) < product.getMinimum()) {
-
-			message = "The number of products fell below the limit (" + product.getMinimum() + ").";
-		}
-		return message;
-	}
-
 	private void fillEmptyShelf(int count, Product product) {
 		List<Shelf> emptyShelves = shelfRepository.findAllByCount(0);
 		// countu 0 olan boxlari istedik icinde 0 eleman olan
@@ -133,6 +99,41 @@ public class ProductService {
 		}
 	}
 
+	@Transactional
+	public String saleProduct(int productId, int count) {
+		String message = "";
+		Product product = getProduct(productId);
+		Optional<Shelf> oShelf = shelfRepository.findByProductIdAndNotFull(productId);
+		if (oShelf.isPresent()) {
+			// yarı dolu shelf bulundu. Satış öncelikli olarak bu shelf içinden yapılacak.
+			Shelf shelf = oShelf.get();
+			int salesQuantity = count;
+
+			if (salesQuantity > shelf.getCount()) {
+				salesQuantity = shelf.getCount();
+			}
+			shelf.setCount(shelf.getCount() - salesQuantity);
+			if (shelf.getCount() == 0) {
+				// shelf boşaldı. product ile ilişkisini kaldıralım.
+				shelf.setProduct(null);
+			}
+			shelfRepository.save(shelf);
+			count -= salesQuantity;
+		}
+		// satış yapılacak product'ler kaldı ise diğer tam dolu shelf'lardan satış devam
+		// edecek.
+		if (count > 0) {
+			saleF​​romFullLoadedShelves(count, product);
+		}
+
+		if (shelfRepository.getProductCount(productId) != null
+				&& shelfRepository.getProductCount(productId) < product.getMinimum()) {
+
+			message = "The number of products fell below the limit (" + product.getMinimum() + ").";
+		}
+		return message;
+	}
+
 	private Product getProduct(int productId) {
 		Optional<Product> oProduct = productRepository.findById(productId);
 		Product product = null;
@@ -145,17 +146,20 @@ public class ProductService {
 		return product;
 	}
 
-	private void sellF​​romFullLoadedShelves(int count, Product product) {
+	private void saleF​​romFullLoadedShelves(int count, Product product) {
 		List<Shelf> fullShelves = shelfRepository
 				.findAllByProductIdAndCountGreaterThan(product.getId(), 0);
 		int nextFirstFullRow = 0;
+		// Düşük id'li raftan başlamak için 0 olarak ayarladık
 		while (count > 0) {
 			// count 0dan buyuk oldugu surece
-			if (nextFirstFullRow < 0) {
-				// elimizde satış yapabileğimiz dolu shelf kalmadı.
+			if (nextFirstFullRow >= fullShelves.size()) {
+				// Satış yapılacak tam dolu rafta ürün kalmadı
+				// dolu shelf kalmadı.
 				throw new ServiceException(ERROR_CODES.PRODUCT_NOT_FOUND);
 			}
 			Shelf shelf = fullShelves.get(nextFirstFullRow); // ilk dolu shelf
+			// Düşük id'li raftan başlayarak satış yapar
 
 			int soldQuantity = count;
 			if (soldQuantity > shelf.getCount()) {
@@ -163,12 +167,13 @@ public class ProductService {
 			}
 			shelf.setCount(shelf.getCount() - soldQuantity);
 			if (shelf.getCount() == 0) {
-				// boş boşaldı. Product ile ilişkisini kaldıralım.
+				// shelf bosaldi.Product ile ilişkisini kaldıralım.
+
 				shelf.setProduct(null);
 			}
 			shelfRepository.save(shelf);
 			count -= soldQuantity;
-			nextFirstFullRow--;
+			nextFirstFullRow++;
 		}
 	}
 

@@ -12,7 +12,6 @@ public interface ShelfRepository extends JpaRepository<Shelf, Integer> {
 
 	List<Shelf> findAllByProductIdAndCountGreaterThan(int id, int count);
 
-	// countu 0 olan boxlari istedik icinde 0 eleman olan
 	List<Shelf> findAllByCount(int count);
 
 	@Query("SELECT s FROM Shelf s WHERE s.product.id = :productId and s.count < s.capacity order by s.id limit 1")
@@ -23,4 +22,5 @@ public interface ShelfRepository extends JpaRepository<Shelf, Integer> {
 
 	@Query("SELECT sum(s.count) FROM Shelf s WHERE s.product.id = :productId")
 	Integer getProductCount(Integer productId);
+	// null degeri geri dondurebilsin diye int degil Integer dondurecek
 }
