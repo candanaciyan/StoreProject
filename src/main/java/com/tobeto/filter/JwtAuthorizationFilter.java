@@ -33,7 +33,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 		String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		try {
 			if (authHeader != null && authHeader.startsWith("Bearer ")) {
-				// Autherization header'ı gönderilmiş ise ve "Bearer " ile başlıyorsa
+
 				String token = authHeader.substring(7);
 				if (!"".equals(token)) {
 					// token gönderilmiş ise
@@ -51,7 +51,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 				}
 			}
 		} catch (Exception ex) {
-			// jwt token kontrolü sırasında hata oluştuysa bir şey yapma
+
 		}
 		filterChain.doFilter(request, response);
 	}

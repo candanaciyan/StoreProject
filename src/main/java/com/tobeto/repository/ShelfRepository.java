@@ -16,7 +16,6 @@ public interface ShelfRepository extends JpaRepository<Shelf, Integer> {
 
 	@Query("SELECT s FROM Shelf s WHERE s.product.id = :productId and s.count < s.capacity order by s.id limit 1")
 	Optional<Shelf> findByProductIdAndNotFull(int productId);
-	// capacitysi tam dolu olmayanlar demek bu
 	// o urunun idsi ile onu saklayan shelfi bul ve ona gore kapasitesine bak
 	// idsi dusuk olandan aldim
 

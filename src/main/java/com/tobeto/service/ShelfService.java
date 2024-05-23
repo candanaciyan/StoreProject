@@ -25,10 +25,8 @@ public class ShelfService {
 
 	public int createShelf(int capacity, int count) {
 		// public int diyerek geriye kac tane urettigimi dondurebilirim
-
 		if (count > 100) {
 			count = 100;
-			// 100den fazla box yaratmayalim limit o olsun dedik
 
 		}
 		for (int i = 0; i < count; i++) {

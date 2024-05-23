@@ -25,10 +25,6 @@ public class ShelfController {
 	private ShelfService shelfService;
 
 	@Autowired
-	@Qualifier("requestMapper")
-	private ModelMapper requestMapper;
-
-	@Autowired
 	@Qualifier("responseMapper")
 	private ModelMapper responseMapper;
 
