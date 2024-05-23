@@ -11,5 +11,5 @@ public class GlobalExceptionDTO {
 	// bu client tarafina hata durumunda donecek olan cevabi iletecek dto oluyor
 
 	private int code;
-	private String mesaj;
+	private String message;
 }

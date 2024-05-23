@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 		log.error(ex);
 		GlobalExceptionDTO dto = new GlobalExceptionDTO();
 		dto.setCode(1001);
-		dto.setMesaj("An Error Occurred");
+		dto.setMessage("An Error Occurred");
 		return ResponseEntity.internalServerError().body(dto);
 	}
 }

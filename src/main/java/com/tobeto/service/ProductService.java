@@ -51,13 +51,9 @@ public class ProductService {
 	public void acceptProduct(int productId, int count) {
 		Product product = getProduct(productId);
 		Optional<Shelf> oShelf = shelfRepository.findByProductIdAndNotFull(productId);
-//		boxrepo uzerinden where kosuluyla kapasitesiyle countu ayni olanlari isteyecegiz
-//		customqueery olusturmam lazim buna parametre olarak fruitid verecegim
-//		o fruitidyi icinde barindiran ve tam dolu olmayan boxi bulup bana getirecek 
-//		bu metot yok bunu olusturacagiz repo icinde
 
 		if (oShelf.isPresent()) {
-			// yarı dolu shelf bulundu. İçine aldığı kadar product koyalım.
+			// yarı dolu shelf bulundu. İçine aldığı kadar product koyacagiz..
 			Shelf shelf = oShelf.get();
 			int placedAmount = count;
 			int remainingInside = shelf.getCapacity() - shelf.getCount();
